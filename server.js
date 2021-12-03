@@ -5,6 +5,8 @@ const apiRoutes = require('./routes/apiroutes')
 
 const PORT = process.env.PORT || 3000;
 
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
+
 mongoose.connect(
     process.env.MONGODB_URI || 'mongodb://localhost/workout',
     {
@@ -15,7 +17,7 @@ mongoose.connect(
     }
   );
 
-  const app = express();
+const app = express();
 
 app.use(logger("dev"));
 
