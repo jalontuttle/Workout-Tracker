@@ -5,15 +5,19 @@ const apiRoutes = require('./routes/apiroutes')
 
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect(
+function connect() {
+const connection = mongoose.connect(
     process.env.MONGODB_URI || 'mongodb://localhost/workout',
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false
-    }
-  );
+    });
+    connection.catch(err => {
+      console.log('err ' + err);
+    })
+};
 
 const app = express();
 
@@ -31,3 +35,5 @@ app.use(apiRoutes);
 app.listen(PORT, ()=> {
     console.log(`App running on port ${PORT} `);
 });
+
+module.exports= {connect}
